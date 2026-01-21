@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Update <%= foundAppointment.name %></h1>
+
+    <form action="/Appointment/update/<%= Appointment._id %>" method="post">
+
+        <label for="name">Name:</label>
+        <input value="<%= Appointment.name %>" name="name" id="name" type="text">
+
+        <label for="Update">YOU CAN UPDATE NOW: </label>
+        <input <% if(foundAppointment.update) {%> checked <% } %> name="" id="update" type="checkbox">
+
+    
+        <button >Update </button>
+    </form>
+</body>
+</html>
