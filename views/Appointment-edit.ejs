@@ -1,0 +1,9 @@
+<h1>Edit Appointment</h1>
+<p>Doctor: <%= appointment.doctor.name %></p>
+
+<form method="POST" action="/appointments/<%= appointment._id %>/update">
+  <input name="date" value="<%= appointment.date %>" required />
+  <input name="time" value="<%= appointment.time %>" required />
+  <button type="submit">Save</button>
+</form>
+<a href="/appointments/<%= appointment._id %>">Back</a>

@@ -1,38 +1,50 @@
-// imports
-const express = require("express") //importing express package
-const app = express() // creates a express application
-const dotenv = require("dotenv").config() //this allows me to use my .env values in this file
-const mongoose = require("mongoose")
-const morgan = require('morgan')
-const authrouter= require('./controllers/auth')
-const Doctorsrouter= require('./controllers/doctors.routes')
-const Appointmentrouter= require('./controllers/appointment.routes')
+require("dotenv").config();
+const express = require("express");
+const path = require("path");
+const morgan = require("morgan");
+const session = require("express-session");
 
-app.use(express.static('public')) // my app will serve all static files from public folder
-app.use(express.urlencoded({ extended: false }));
-app.use(morgan('dev'))
-async function connectToDB(){ //connection to the database
-    try{
-        await mongoose.connect(process.env.MONGODB_URI)
-        console.log("Connected to Database")
-    }
-    catch(error){
-        console.log("Error Occured",error)
-    }
-}
+const connectDB = require("./config/db");
 
-connectToDB() // connect to database
+const authRouter = require("./router/auth");
+const homeRouter = require("./router/home");
+const specialtiesRouter = require("./router/specialties");
+const doctorsRouter = require("./router/doctors");
+const appointmentsRouter = require("./router/appointments");
 
+const app = express();
 
-// Routes go here
-app.use('/auth' , authrouter);
-app.use('/doctors' , Doctorsrouter);
-app.use('/appointment',Appointmentrouter);
+connectDB(process.env.MONGODB_URI);
 
+// middleware
+app.set("view engine", "ejs");
+app.set("views", path.join(__dirname, "views"));
 
-app.listen(3000,()=>{
-    console.log('App is working')
-}) // Listen on Port 3000
+app.use(morgan("dev"));
+app.use(express.urlencoded({ extended: true }));
+app.use(express.static(path.join(__dirname, "public")));
 
+app.use(
+  session({
+    secret: process.env.SESSION_SECRET || "secret",
+    resave: false,
+    saveUninitialized: false,
+  })
+);
 
+// simple helper: userId in views
+app.use((req, res, next) => {
+  res.locals.userId = req.session.userId || null;
+  next();
+});
 
+// routes
+app.use("/auth", authRouter);
+app.use("/", homeRouter);
+app.use("/specialties", specialtiesRouter);
+app.use("/doctors", doctorsRouter);
+app.use("/appointments", appointmentsRouter);
+
+// start
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => console.log(`✅ Server running on http://localhost:${PORT}`));

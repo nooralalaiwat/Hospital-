@@ -1,0 +1,9 @@
+<h1>Book Appointment</h1>
+<p>Doctor: <%= doctor.name %> - <%= doctor.specialty %></p>
+
+<form method="POST" action="/appointments">
+  <input type="hidden" name="doctorId" value="<%= doctor._id %>" />
+  <input name="date" placeholder="YYYY-MM-DD" required />
+  <input name="time" placeholder="HH:MM" required />
+  <button type="submit">Confirm</button>
+</form>

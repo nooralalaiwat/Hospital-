@@ -1,26 +1,12 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>doctors</title>
-    </head>
-    <body>
-        <h1>choose your doctor</h1>
-      
+<h1>Doctors - <%= specialty %></h1>
 
-name:
-<input type="text" name="name" required />
-<br><br>
-specialty:
-<input type="text" name="specialty" required />
-<br><br>
-experience:
-<input type="text" name="experience" required />
-<br><br>
+<ul>
+  <% doctors.forEach(d => { %>
+    <li>
+      <b><%= d.name %></b> | <%= d.experience %> years
+      <a href="/appointments/new/<%= d._id %>">Book</a>
+    </li>
+  <% }) %>
+</ul>
 
-<button>done</button>
-</form>
-
- <a href="/specialty">Back</a>
-
-    </body>
-</html>
+<a href="/specialties">Back</a>

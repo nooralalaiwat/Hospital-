@@ -1,0 +1,16 @@
+<h1>Appointment Details</h1>
+
+<p><b>Date:</b> <%= appointment.date %></p>
+<p><b>Time:</b> <%= appointment.time %></p>
+
+<p><b>Patient:</b> <%= appointment.patient.name %></p>
+<p><b>Doctor:</b> <%= appointment.doctor.name %></p>
+<p><b>Specialty:</b> <%= appointment.doctor.specialty %></p>
+
+<a href="/appointments/<%= appointment._id %>/edit">Edit</a>
+
+<form method="POST" action="/appointments/<%= appointment._id %>/delete" style="display:inline;">
+  <button type="submit">Delete</button>
+</form>
+
+<a href="/home">Home</a>
