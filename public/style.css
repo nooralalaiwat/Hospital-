@@ -1,0 +1,33 @@
+body {
+  font-family: Arial;
+  background: #eee;
+}
+
+h1 {
+  text-align: center;
+}
+
+ul {
+  padding: 0;
+}
+
+li {
+  list-style: none;
+  background: white;
+  margin: 10px auto;
+  padding: 10px;
+  width: 250px;
+  text-align: center;
+  border-radius: 5px;
+}
+
+a {
+  text-decoration: none;
+  color: blue;
+}
+
+.back {
+  display: block;
+  text-align: center;
+  margin-top: 20px;
+}
